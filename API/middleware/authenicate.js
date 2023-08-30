@@ -1,4 +1,4 @@
-const db = require('../config')
+const database = require('../config')
 const {sign, verify} = require('jsonwebtoken')
 
 require("dotenv")
