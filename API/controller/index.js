@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const routes = express()
 
-const {users, orders, courses} = require('../models')
+const {users, items, orders} = require('../models')
 
 //GET '/users'
 routes.get('/users',(req, res)=>{ 
@@ -37,6 +37,36 @@ routes.post('/login',bodyParser.json(),
 //DELETE '/user/:id'
 routes.delete('/users/:id',(req,res)=>{  
     users.deleteUser(req,res)
+})
+
+/*Items Routes*/
+
+//GET '/items'
+routes.get('/items', (req,res)=>{ 
+    items.fetchCourses(req,res)  
+})
+
+//GET '/item/:id'
+routes.get('/item/:id',(req,res)=>{
+    items.fetchCourse(req,res)  
+})
+
+//POST '/items'
+routes.post('/products',bodyParser.json(),
+    (req,res)=>{
+    items.createCourse(req,res) 
+    }
+)
+
+//PUT '/item/:id'
+routes.put('/item/:id', bodyParser.json(), 
+    (req,res)=>{
+    items.updateCourse(req,res) 
+})
+
+//DELETE '/item/:id'
+routes.delete('/item/:id',(req,res)=>{  
+    items.deleteCourse(req,res) 
 })
 
 module.exports = {

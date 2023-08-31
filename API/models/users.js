@@ -133,8 +133,10 @@ class Users{
     }
     deleteUser(req,res){
         const query =`
-        DELETE FROM users
-        WHERE userID = ${req.params.id};
+        DELETE users, orders
+        FROM users
+        LEFT JOIN orders ON users.userID = orders.userID
+        WHERE users.userID = ${req.params.id};
         `
         database.query(query,(err)=>{
             if(err) throw err
