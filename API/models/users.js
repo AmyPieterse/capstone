@@ -46,58 +46,18 @@ class Users{
             })
         })
     }
-    login(req,res){
-        const {emailAdd, userPass} = req.body
-        // query
-        const query = `
-        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL
-        FROM users
-        WHERE emailAdd = '${emailAdd}';
-        `
-        database.query(query,[userPass], async (err, result)=>{
-            console.log(result,userPass);
-            if(err) throw err
-            if(!result?.length){
-                res.json({
-                    status: res.statusCode,
-                    msg: "You provided a wrong email."
-                })
-            }else {
-                await compare(userPass,
-                    result[0].userPass,
-                    (cErr, cResult)=>{
-                        if(cErr) throw cErr
-                        // Create a token
-                        let token =
-                        createToken({
-                            emailAdd,
-                            userPass
-                        })
-                        if(cResult) {
-                            res.json({
-                                msg: "Logged in",
-                                token,
-                                result: result[0]
-                            })
-                        }else {
-                            res.json({
-                                status: res.statusCode,
-                                msg:
-                                "Invalid password or you have not registered"
-                            })
-                        }
-                    })
-                }
-        })
-    }
     async register(req,res){
         const data =req.body
-        data.userPass = await hash(data.userPass,15)
+        data.userPass = await hash(data.userPass, 15)
         
-        //payload
         const user ={
+            firstName : data.firstName,
+            lastName : data.lastName,
+            username : data.username,
+            userDOB : data.userDOB,
             emailAdd : data.emailAdd,
-            userPass : data.userPass
+            userPass : data.userPass,
+            profileURL : data.profileURL
         }
         const query =`
         INSERT INTO users
@@ -146,5 +106,63 @@ class Users{
             })
         })
     }
+    login(req,res){
+        const {emailAdd, userPass} = req.body
+
+        const query = `
+        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL
+        FROM users
+        WHERE emailAdd = ?;
+        `
+        database.query(query,[emailAdd], async(err, result)=>{
+            if(err){
+                console.error(err)
+                return res.status(500).json({
+                    status: res.statusCode,
+                    error:"Couldnt log in"
+                })
+            }
+            if(!result?.length){
+                return res.status(401).json({
+                    status: res.statusCode,
+                    msg: "Email does not exist"
+                })
+            }
+            const hashedPass = result[0].userPass;
+            try{
+                const passwordMatch= await compare(userPass, hashedPass)
+                
+                console.log('Password:', userPass)
+                console.log('Hashed Password:', hashedPass)
+                console.log('Password Match Result:', passwordMatch)
+                    
+                if (passwordMatch){
+                        const token = createToken({
+                            emailAdd
+                        })
+                        res.json({
+                            msg: "You have successfully logged in",
+                            token, 
+                            result: result[0]
+                        })
+                    }
+                    else {
+                        res.status(401).json({
+                            status: res.statusCode,
+                            msg: "Invalid password"
+                        })
+                    }
+                }
+                catch(error){
+                    console.error(error)
+                    res.status(500).json({
+                        status: res.statusCode,
+                        error: "Server error"
+                    })
+                }
+        });
+    }
+
 }
+
 module.exports = Users

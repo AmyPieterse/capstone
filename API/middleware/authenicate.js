@@ -4,14 +4,12 @@ const {sign, verify} = require('jsonwebtoken')
 require("dotenv")
 
 function createToken(user){
-    return sign(
-    {
-        emailAdd: user.emailAdd,
-        userPass: user.userPass 
-    },
-    process.env.SECRET_KEY, 
-    {
-        expiresIn:'1h'
+    const payload={
+        userId: user.userId, 
+    }
+
+    return sign(payload, process.env.SECRET_KEY,{
+        expiresIn: '1h',
     })
 }
 
@@ -31,11 +29,13 @@ function verifyAToken(req, res, next){
                 msg:"Invalid token"
             })
         }
+        req.user=decodedToken;
         next()
-    }catch(e){
+    }catch(error){
+        console.error(error)
         res.status(500).json({
             status: res.statusCode,
-            msg: e.message
+            msg: "Server Error"
         })
     }
 }

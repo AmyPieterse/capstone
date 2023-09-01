@@ -4,12 +4,25 @@ class Courses{
     fetchCourses(req,res){
         const query =
         `SELECT courseID, title, description, price, creationDate, courseImg
-        FROM products;`
+        FROM courses;`
         database.query(query,(err,results)=>{
             if(err) throw err
             res.json({
                 status:res.statusCode,
                 results
+            })
+        })
+    }
+    fetchCourse(req,res){
+        const query =`SELECT courseID, title, description, price, creationDate, courseImg
+        FROM courses
+        WHERE courseID = ${req.params.id};`
+        
+        database.query(query,(err,result)=>{
+            if(err) throw err
+            res.json({
+                status:res.statusCode,
+                result: result[0]
             })
         })
     }
@@ -35,19 +48,6 @@ class Courses{
             })
         })
     }
-    fetchCourse(req,res){
-        const query =`SELECT courseID, title, description, price, creationDate, courseImg
-        FROM courses
-        WHERE courseID = ${req.params.id};`
-        
-        database.query(query,(err,result)=>{
-            if(err) throw err
-            res.json({
-                status:res.statusCode,
-                result: result[0]
-            })
-        })
-    }
     updateCourse(req,res){
         const data = req.body
         const query =`
@@ -64,7 +64,6 @@ class Courses{
         })
     }
     deleteCourse(req,res){
-        
         const query =`DELETE FROM courses WHERE courseID = ${req.params.id};`
         
         console.log(query)
