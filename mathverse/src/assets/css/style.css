@@ -27,12 +27,10 @@ html, body {
 
 #app {
     font-family: 'Lora', serif;
-    /* -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    grid-template-columns: 100%; */
+}
+
+main{
+    min-height: 90vh;
 }
 
 

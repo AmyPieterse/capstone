@@ -1,6 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-md px-4">
-        <div id="navContainer">
+    <nav class="navbar navbar-expand-md px-4" >
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -9,17 +8,19 @@
                 </span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav ml-auto text-center">
-                    <li class="nav-item active">
-                        <router-link class="nav-link" to="/">Courses</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/about">About</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/contact">Contact</router-link>
-                    </li>
-                </ul>
+                <div>
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item active">
+                            <router-link class="nav-link" to="/">Courses</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/about">About</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/contact">Contact</router-link>
+                        </li>
+                    </ul>
+                </div>
                 <div>
                     <form id="form" role="search">
                         <input type="search" id="query" name="q"
@@ -35,9 +36,11 @@
             </div>
             <div>
                 <img src="" alt="">
-                <h2></h2>
+                <h2>Mathverse</h2>
             </div>
-        </div>
+            <div>
+
+            </div>
     </nav>
 </template>
 
@@ -48,6 +51,7 @@
 </script>
 
 <style>
+
 form {
     background-color: var(--secondary-color-2);
     width: 300px;
@@ -57,10 +61,18 @@ form {
     flex-direction: row;
     align-items: center;
 }
-.navbar .navbar-toggler{
+nav{
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.4);
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.navbar-toggler{
     border-color: transparent; 
 }
 .navContainer{
+    width: 100%;
     display: flex;
 }
 .navbar-nav .nav-link{
@@ -70,9 +82,9 @@ form {
 nav .nav-link:hover{
     color: #42b983!important;
 }
-nav a.router-link-exact-active {
+nav a.router-link-exact-active{
     text-decoration: underline;
-    color: var(--primary-color);
+    color: #42b983!important;
 }
 
 input {
