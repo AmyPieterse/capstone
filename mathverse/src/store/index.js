@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
-const apiLink = ("")
+import axios from 'axios'
+
+const apiLink = "https://capstone-i3ue.onrender.com"
 
 export default createStore({
   state: {
@@ -13,6 +15,15 @@ export default createStore({
     }
   },
   actions: {
+    async fetchCourses(context){
+      try {
+        const {data} = await axios.get(`${apiLink}/items`);
+        context.commit('setCourses', data.results)
+        }
+      catch (e){
+        context.commit("","")
+      }
+    }
   },
   modules: {
   }

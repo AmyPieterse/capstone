@@ -13,7 +13,9 @@
                         <li class="nav-item active">
                             
                         </li>
-                        <router-link class="nav-link" to="/courses">Courses</router-link>
+                        <li>
+                            <router-link class="nav-link" to="/courses">Courses</router-link>
+                        </li>
                         <li class="nav-item">
                             <router-link class="nav-link" to="/about">About</router-link>
                         </li>
@@ -36,8 +38,10 @@
                 </div>
                 <div class="w-100 d-flex justify-content-between">
                     <div class="main-heading">
-                        <img src="https://i.postimg.cc/k4h59w8y/icon.png" alt="icon">
-                        <h2>Mathverse</h2>
+                        <router-link class="nav-link d-flex" to="/">
+                            <img src="https://i.postimg.cc/ZR0fsFSN/icon.png" alt="icon">
+                            <h2>Mathverse</h2>
+                        </router-link>
                     </div>
                     <div id="button-container" class="d-flex justify-content-center align-items-center">
                         <div>
