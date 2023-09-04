@@ -1,5 +1,5 @@
 //orders table (to remove, edit, add to cart)
-const database = require ('../config')
+const database = require('../config')
 
 class Orders{ 
     fetchOrders(req,res){
@@ -90,6 +90,21 @@ class Orders{
                 callback(null,"orders deleted")
             }
             
+        })
+    }
+    delete(req,res){
+        const query =`
+        DELETE users, orders
+        FROM users
+        LEFT JOIN orders ON users.userID = orders.userID
+        WHERE users.userID = ${req.params.id};
+        `
+        database.query(query,(err)=>{
+            if(err) throw err
+            res.json({
+                status: res.statusCode,
+                msg: "The user record has been deleted."
+            })
         })
     }
     deleteOrder = (userID, orderID, callback)=>{
