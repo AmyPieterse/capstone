@@ -53,7 +53,6 @@
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
-
 .card-text {
     margin-bottom: 1rem;
 }
