@@ -9,8 +9,8 @@
             <h2>LEARN ANYWHERE</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta illo quam autem consequuntur minima blanditiis culpa accusamus odit dolor sint, quo commodi, voluptatum adipisci, quis mollitia molestias obcaecati vero quisquam?</p>
             <div class="d-flex justify-content-center">
-              <button class="home-button mx-2">Learner</button>
-              <button class="home-button mx-2">Administrator</button>
+              <router-link to="/profile"><button class="home-button mx-2">Learner</button></router-link>
+              <router-link to="/admin"><button class="home-button mx-2">Administrator</button></router-link>
             </div>
           </div>
       </div>
