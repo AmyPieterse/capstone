@@ -13,18 +13,26 @@ export default createStore({
     msg: null
   },
   getters: {
-    // getCourses: (state) =>state.courses
   },
   mutations: {
     setCourses(state,courses){
       state.courses= courses
     },
-    setAddCourse(state, data) {
+    setAddCourse(state, data){
       state.addCourse = data
     },
-    setMsg(state, value) {
+    updateCourse(state,{courseID, updatedCourse}){
+      const index = state.courses.findIndex((course)=> course.id === courseID)
+      if (index !== -1){
+        Vue.set(state.courses, index, updatedCourse);
+      }
+    },
+    deleteCourse(state, courseID){
+      state.courses = state.courses.filter((course) => course.id !== courseID)
+    },
+    setMsg(state, value){
       state.msg = value
-    }
+    },
   },
   actions: {
     async fetchCourses(context){
@@ -38,7 +46,7 @@ export default createStore({
     },
     async addCourse(context,courseData){
       try{
-        const response = await axios.post(`${apiLink}/`,courseData)
+        const response = await axios.post(`${apiLink}/items`,courseData)
         context.commit('setAddCourse',response.data)
       }
       catch(error){

@@ -38,7 +38,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Add new Course</button>
+            <button type="button" class="btn btn-primary" @click="addCourse">Add new Course</button>
         </div>
     </div>
 </div>
@@ -89,25 +89,29 @@
                                                 <form id="newPost">
                                                     <div class="d-flex">
                                                         <label for="name">Title:</label>
-                                                        <input class="custom-background" placeholder="" type="text" id="name" name="name"/>
+                                                        <input v-model="courseData.title" class="custom-background" placeholder="" type="text" id="name" name="name"/>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="description">Description:</label>
-                                                        <textarea class="custom-background" placeholder="" id="description" name="description" rows="5"></textarea>
+                                                        <textarea v-model="courseData.description" class="custom-background" placeholder="" id="description" name="description" rows="5"></textarea>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="price">Price:</label>
-                                                        <input class="custom-background" placeholder="" type="text" id="price" name="price" />
+                                                        <input v-model="courseData.price" class="custom-background" placeholder="" type="text" id="price" name="price" />
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <label for="date">Date:</label>
+                                                        <input v-model="courseData.creationDate" class="custom-background" placeholder="" type="text" id="date" name="date"/>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="image">Image(url):</label>
-                                                        <input class="custom-background" placeholder="" type="url" id="image" name="uploadImage" />
+                                                        <input v-model="courseData.courseImg" class="custom-background" placeholder="" type="url" id="image" name="uploadImage" />
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-primary" @click="updateCourse">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -142,21 +146,61 @@
                         price:"",
                         creationDate:"",
                         courseImg:""
-                }
+                },
             } 
         },
         methods:{
-            addCourse(){
-            this.$store.dispatch('addProduct', this.courseData)
+        async addCourse(){
+            try {
+                await this.$store.dispatch('addCourse', this.courseData)
+                this.courseData = {
+                    title:"",
+                    description:"",
+                    price:"",
+                    creationDate:"",
+                    courseImg: ""
+                    };
+            }
+            catch(error){
+                    console.error(error)
             }
         },
-        components:{
-        },
-        computed:{
-            courses(){
-                return this.$store.state.courses
+        async fetchCourses(){
+            try{
+            const {data} = await this.$axios.get(`${apiLink}/items`)
+                this.courses = data.results
+            } 
+            catch(error){
+                console.error(error)
             }
         },
+        async updateCourse(courseID, updatedCourseData){
+            try{
+                await this.$store.dispatch('updateCourse', {courseID, courseData: updatedCourseData})
+            } 
+            catch(error){
+                console.error(error)
+            }
+        },
+        async deleteCourse(courseID){
+            try {
+                await this.$store.dispatch('deleteCourse', courseID)
+            } 
+            catch(error){
+                console.error(error)
+            }
+        }
+    },
+    created(){
+        this.fetchCourses()
+    },
+    components:{
+    },
+    computed:{
+        courses(){
+            return this.$store.state.courses
+        }
+    },
         mounted(){
             this.$store.dispatch('fetchCourses')
         }
