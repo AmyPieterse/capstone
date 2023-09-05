@@ -11,9 +11,6 @@
                 <div class="d-flex mr-5">
                     <ul class="navbar-nav ml-auto text-center">
                         <li class="nav-item active">
-                            
-                        </li>
-                        <li>
                             <router-link class="nav-link" to="/courses">Courses</router-link>
                         </li>
                         <li class="nav-item">
@@ -23,7 +20,7 @@
                             <router-link class="nav-link" to="/contact">Contact</router-link>
                         </li>
                     </ul>
-                    <div>
+                    <div class="custom-hidden">
                         <form id="form" role="search">
                             <input type="search" id="query" name="q"
                                 placeholder="Search for course"
@@ -36,14 +33,14 @@
                         </form>
                     </div>
                 </div>
-                <div class="w-100 d-flex justify-content-between">
+                <div class="w-100 d-md-flex justify-content-between custom-hidden">
                     <div class="main-heading">
-                        <router-link class="nav-link d-flex" to="/">
+                        <router-link class="nav-link d-md-flex" to="/">
                             <img src="https://i.postimg.cc/ZR0fsFSN/icon.png" alt="icon">
                             <h2>Mathverse</h2>
                         </router-link>
                     </div>
-                    <div id="button-container" class="d-flex justify-content-center align-items-center">
+                    <div id="button-container" class="d-md-flex justify-content-center align-items-center">
                         <div>
                             <router-link class="nav-button m-2" to="/contact">Log In</router-link>
                             <router-link class="nav-button m-2" to="/contact">Sign Up</router-link>
@@ -139,6 +136,11 @@ input {
     background-color: var(--accent-color-1);
     border-radius: 5px;
     padding: 8px 20px;
+}
+@media (max-width: 768px) {
+    .custom-hidden{
+        display: none;
+    }
 }
 
 </style>
