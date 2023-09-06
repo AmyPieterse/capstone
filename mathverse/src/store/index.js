@@ -90,7 +90,35 @@ export default createStore({
       catch(error){
         context.commit("setMsg", "An error occured")
       }
-    }
+    },
+    //login
+    async login(context, payload) {
+      try {
+        const { msg, token, result } = (
+          await axios.post(`${dataUrl}user`, payload)).data;
+        if (result) {
+          context.commit("setUser", { result, msg });
+          cookies.set("ActualUser", { msg, token, result });
+          authenticate.applyToken(token);
+          sweet({
+            title: msg,
+            text: `Welcome back ${result?.firstName} ${result?.lastName}`,
+            icon: "success",
+            timer: 4000,
+          });
+          router.push({ name: "home" });
+        } else {
+          sweet({
+            title: "Error",
+            text: msg,
+            icon: "error",
+            timer: 4000,
+          });
+        }
+      } catch (e) {
+        context.commit("setMsg", "An error has occured");
+      }
+    },
   },
   modules: {
   }

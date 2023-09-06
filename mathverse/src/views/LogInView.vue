@@ -41,18 +41,18 @@ export default {
         }
     },
     computed: {
-        user(){
-            return this.$store.state.user
-        }
-    },
-    mounted() {
-    
+        user() {
+            return this.$store.state.user;
+        },
     },
     methods: {
         login() {
-
-            } 
+            this.$store.dispatch("login", this.payload);
         },
+    },
+    beforeCreate() {
+        this.$store.dispatch("fetchUsers");
+    }
     
 }
 </script>
