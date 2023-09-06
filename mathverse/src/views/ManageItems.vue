@@ -13,7 +13,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Course</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New Course</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         <div class="modal-body">
@@ -29,6 +29,10 @@
                 <div class="d-flex">
                     <label for="price">Price:</label>
                     <input v-model="courseData.price" class="custom-background" type="text" id="price" name="price" />
+                </div>
+                <div class="d-flex">
+                    <label for="date">Date:</label>
+                    <input v-model="courseData.creationDate" class="custom-background" placeholder="" type="text" id="date" name="date"/>
                 </div>
                 <div class="d-flex">
                     <label for="image">Image(url):</label>
@@ -70,7 +74,7 @@
                             <td>
                                 <div>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    <button type="button" class="btn custom-button" data-bs-toggle="modal" :data-bs-target="'#editModal'+ course.courseID">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -78,34 +82,34 @@
                                     </button>
                                     
                                     <!-- Modal -->
-                                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" :id="'editModal'+ course.courseID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Course</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Course</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                             <div class="modal-body">
                                                 <form id="newPost">
                                                     <div class="d-flex">
                                                         <label for="name">Title:</label>
-                                                        <input v-model="courseData.title" class="custom-background" placeholder="" type="text" id="name" name="name"/>
+                                                        <input v-model="courseData.title" class="custom-background" :placeholder="course.title" type="text" id="name" name="name"/>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="description">Description:</label>
-                                                        <textarea v-model="courseData.description" class="custom-background" placeholder="" id="description" name="description" rows="5"></textarea>
+                                                        <textarea v-model="courseData.description" class="custom-background" :placeholder="course.description" id="description" name="description" rows="5"></textarea>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="price">Price:</label>
-                                                        <input v-model="courseData.price" class="custom-background" placeholder="" type="text" id="price" name="price" />
+                                                        <input v-model="courseData.price" class="custom-background" :placeholder="course.price" type="text" id="price" name="price" />
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="date">Date:</label>
-                                                        <input v-model="courseData.creationDate" class="custom-background" placeholder="" type="text" id="date" name="date"/>
+                                                        <input v-model="courseData.creationDate" class="custom-background" :placeholder="course.creationDate" type="text" id="date" name="date"/>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label for="image">Image(url):</label>
-                                                        <input v-model="courseData.courseImg" class="custom-background" placeholder="" type="url" id="image" name="uploadImage" />
+                                                        <input v-model="courseData.courseImg" class="custom-background" :placeholder="course.courseImg" type="url" id="image" name="uploadImage" />
                                                     </div>
                                                 </form>
                                             </div>
@@ -116,11 +120,10 @@
                                         </div>
                                     </div>
                                     </div>
-                                    
                                     </div>
                             </td>
                             <td>
-                                <button class="custom-button">
+                                <button class="custom-button" @click="deleteCourse(course.courseID)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash p-0" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
@@ -136,7 +139,6 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
     export default {
         data(){
             return{
@@ -174,21 +176,29 @@
                 console.error(error)
             }
         },
-        async updateCourse(courseID, updatedCourseData){
-            try{
-                await this.$store.dispatch('updateCourse', {courseID, courseData: updatedCourseData})
-            } 
-            catch(error){
-                console.error(error)
+        updateCourse(courseID){
+            const courseToUpdate= this.courses.find((course)=>course.courseID === courseID)
+            
+            const updatedCourseData={
+                title:this.courseData.title||courseToUpdate.title,
+                description: this.courseData.description||courseToUpdate.description,
+                price: this.courseData.price||courseToUpdate.price,
+                creationDate: this.courseData.creationDate||courseToUpdate.creationDate,
+                courseImg: this.courseData.courseImg||courseToUpdate.courseImg,
+                }
+            
+        this.$store.dispatch('updateCourse', {courseID, courseData: updatedCourseData})
+            this.courseData={
+                title: "",
+                description: "",
+                price: "",
+                creationDate: "",
+                courseImg: "",
             }
         },
-        async deleteCourse(courseID){
-            try {
-                await this.$store.dispatch('deleteCourse', courseID)
-            } 
-            catch(error){
-                console.error(error)
-            }
+        
+        deleteCourse(courseID){
+            this.$store.dispatch('deleteCourse', courseID)
         }
     },
     created(){

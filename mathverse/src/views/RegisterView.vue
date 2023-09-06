@@ -6,15 +6,22 @@
 
 <script>
     export default {
-        // data(){
-        //     return{
-        //         payload:{
-        //             emailAdd:""
-        //             firstname:""
-        //         }
-        //     }
+        data(){
+            return{
+                payload:{
+                    firstname:"",
+                    lastname:"",
+                    username:"",
+                    userDOB:"",
+                    emailAdd:"",
+                    userPass:"",
+                    profileURL:""
+                }
+            }
+        },
+        // computed{
+
         // },
-        // computed{}
     }
 </script>
 
