@@ -31,8 +31,8 @@ export default createStore({
     },
     updateCourse(state,{courseID, updatedCourse}){
       const index= state.courses.findIndex((course)=>course.id === courseID)
-      if (index !== -1){
-        Vue.set(state.courses, index, updatedCourse);
+      if (index!==-1){
+        state.courses[index] =updatedCourse
       }
     },
     deleteCourse(state, courseID){
@@ -95,10 +95,10 @@ export default createStore({
     async login(context, payload) {
       try {
         const { msg, token, result } = (
-          await axios.post(`${dataUrl}user`, payload)).data;
+          await axios.post(`${dataUrl}user`, payload)).data
         if (result) {
-          context.commit("setUser", { result, msg });
-          cookies.set("ActualUser", { msg, token, result });
+          context.commit("setUser", { result, msg })
+          cookies.set("ValidUser", { msg, token, result })
           authenticate.applyToken(token);
           sweet({
             title: msg,

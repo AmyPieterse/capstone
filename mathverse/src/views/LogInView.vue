@@ -60,19 +60,15 @@ export default {
 
 
 <style scoped>
-    main{
-        background-image: url(https://i.postimg.cc/zfN5WNzJ/symbol-scatter-haikei.png);
-    }
     .container{
         height: 80vh;
+        border: 2px solid red; 
+        width: 100%;
         align-self: center;
-    
+        background-image: url(https://i.postimg.cc/nhyC7K06/pexels-pixabay-255464.jpg);
     }
     .infoContainer{
-        border: 2px solid black;
-    }
-    .infoContainer h3{
-        background-color: var(--background-color-1);
+        background: var(--background-color-1);
     }
     .infoContainer p{
         font-size: 20px;
