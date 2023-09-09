@@ -3,12 +3,12 @@
         <h2>Administration Page</h2>
     <div class="p-4">
     <div>
-    <!-- Button trigger modal -->
+
         <button type="button" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#addModal">
         Add Course
         </button>
 
-<!-- Modal -->
+
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -115,7 +115,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" @click="updateCourse">Save changes</button>
+                                                <button type="button" class="btn btn-primary" @click="updateCourse(course.courseID)">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -149,6 +149,7 @@
                         creationDate:"",
                         courseImg:""
                 },
+                selectedCourseID:null,
             } 
         },
         methods:{
@@ -177,27 +178,33 @@
             }
         },
         updateCourse(courseID){
-            const courseToUpdate= this.courses.find((course)=>course.courseID === courseID)
-            
-            const updatedCourseData={
-                title:this.courseData.title||courseToUpdate.title,
-                description: this.courseData.description||courseToUpdate.description,
-                price: this.courseData.price||courseToUpdate.price,
-                creationDate: this.courseData.creationDate||courseToUpdate.creationDate,
-                courseImg: this.courseData.courseImg||courseToUpdate.courseImg,
-                }
-            
-        this.$store.dispatch('updateCourse', {courseID, courseData: updatedCourseData})
-            this.courseData={
-                title: "",
-                description: "",
-                price: "",
-                creationDate: "",
-                courseImg: "",
+    
+            const courseToUpdate = this.courses.find((course)=>course.courseID === courseID)
+    
+            if (courseToUpdate) {
+                const updatedCourseData = {
+                    title: this.courseData.title||courseToUpdate.title,
+                    description: this.courseData.description||courseToUpdate.description,
+                    price: this.courseData.price||courseToUpdate.price,
+                    creationDate: this.courseData.creationDate||courseToUpdate.creationDate,
+                    courseImg: this.courseData.courseImg||courseToUpdate.courseImg,
             }
-        },
         
-        deleteCourse(courseID){
+            this.$store.dispatch('updateCourse',{courseID,courseData: updatedCourseData})
+                this.courseData = {
+                    title: "",
+                    description: "",
+                    price: "",
+                    creationDate: "",
+                    courseImg: "",
+            }
+        }
+        else{
+        console.error("Course not found")
+        }
+},
+
+deleteCourse(courseID){
             this.$store.dispatch('deleteCourse', courseID)
         }
     },
