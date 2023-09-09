@@ -1,23 +1,44 @@
 <template>
-    <div class="d-flex flex-row">
-        <div v-for="course in courses" :key="course.courseID" class="col-lg-3 col-md-4 col-sm-6 mb-md-2 d-flex justify-content-center align-items-center">
-            <div class="card d-flex justify-content-center">
-                <img class="card-img-top imageSize" :src="course.courseImg" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">{{course.title}}</h5>
-                <p class="card-text">{{course.description}}</p>
-                <div class="d-flex justify-content-between">
-                    <a href="#" class="btn btn-success">See More</a>
-                    <a href="#" class="btn btn-success">Buy</a>
-                </div>
+    <div>
+        <div id="searchBar">
+            <form id="form" role="search">
+                <input type="search" id="query" name="q"
+                    placeholder="Search for course"
+                    aria-label="Search through courses" v-model="searchCourse">
+                <button class="btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search text-dark" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+        <div class="d-flex flex-row" v-if="courses">
+            <div v-for="course in courses" :key="course.courseID" class="col-lg-3 col-md-4 col-sm-6 mb-md-2 d-flex justify-content-center align-items-center">
+                <div class="card d-flex justify-content-center">
+                    <img class="card-img-top imageSize" :src="course.courseImg" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">{{course.title}}</h5>
+                    <p class="card-text">{{course.description}}</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="#" class="btn btn-success">See More</a>
+                        <a href="#" class="btn btn-success">Buy</a>
+                    </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div v-else>
+            <SpinnerComp/>
         </div>
     </div>
 </template>
 
 <script>
+    import SpinnerComp from '@/components/SpinnerComp.vue'
     export default {
+        components:{
+            SpinnerComp
+        },
         computed:{
             courses(){
                 return this.$store.state.courses
@@ -30,7 +51,6 @@
 </script>
 
 <style scoped>
-
 .card {
     width: 18.5rem;
     border: 2px solid rgb(221, 221, 221);
@@ -39,6 +59,41 @@
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
 }
 
+input {
+    all: unset;
+    font: 16px;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: var(--button-color-1);
+    height: 100%;
+    width: 100%;
+    padding: 4px 8px;
+}
+#form .btn{
+    display: flex;
+    align-items: flex-start;
+    background-color: transparent;
+    height: 1rem;
+}
+#query{
+    width:15rem
+}
+#form{
+    display: flex;
+    border: 2px solid red;
+    width: min-content;
+    padding: 1rem;
+}
+#searchBar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+::placeholder{
+    color: var(--button-color-1);
+}
 .card-img-top {
     height: 200px;
     object-fit: cover;

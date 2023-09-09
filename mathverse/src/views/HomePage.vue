@@ -38,6 +38,7 @@ export default {
     text-decoration: none;
     color: var(--secondary-color-2);
     background-color: var(--accent-color-1);
+    border: transparent;
     border-radius: 5px;
     padding: 8px 20px;
 }

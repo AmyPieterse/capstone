@@ -10,7 +10,7 @@
             <div class="formContainer w-50">
                 <form class="d-flex flex-column justify-content-center align-items-center w-100" @submit.prevent="login">
                     <div class="inputContainer d-flex flex-column w-70">
-                        <span>Username or Email</span>
+                        <span>Username</span>
                         <input v-model="payload.emailAdd" type="text" placeholder="Email">
                     </div>
                     <div class="inputContainer d-flex flex-column w-70">
@@ -21,7 +21,7 @@
                         <button type="submit">Login</button>
                     </div>
                     <div class="inputContainer">
-                        <p>Don't have an account <a href="./RegisterView.vue">Sign up</a></p>
+                        <p>Don't have an account<router-link :to="{name:'RegisterView'}">Sign up</router-link></p>
                     </div>
                 </form>
             </div>
@@ -53,26 +53,21 @@ export default {
     beforeCreate() {
         this.$store.dispatch("fetchUsers");
     }
-    
 }
 </script>
 
 
 
 <style scoped>
-    main{
-        background-image: url(https://i.postimg.cc/zfN5WNzJ/symbol-scatter-haikei.png);
-    }
     .container{
         height: 80vh;
+        border: 2px solid red; 
+        width: 100%;
         align-self: center;
-    
+        background-image: url(https://i.postimg.cc/nhyC7K06/pexels-pixabay-255464.jpg);
     }
     .infoContainer{
-        border: 2px solid black;
-    }
-    .infoContainer h3{
-        background-color: var(--background-color-1);
+        background: var(--background-color-1);
     }
     .infoContainer p{
         font-size: 20px;
@@ -92,7 +87,8 @@ export default {
         width:12rem;
     }
     form{
-        background-color: var(--background-color-1);
-        height: 30rem;
+        background-color: white;
+        height: min-content;
+        padding: 20px;
     }
 </style>
