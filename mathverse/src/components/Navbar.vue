@@ -3,7 +3,7 @@
         <div class="logo-heading">
             <router-link class="nav-link main-heading d-flex" to="/">
                 <img src="https://i.postimg.cc/ZR0fsFSN/icon.png" class="customImg" alt="icon">
-                <h2>Mathverse</h2>
+                <h2>Mathverses</h2>
             </router-link>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
