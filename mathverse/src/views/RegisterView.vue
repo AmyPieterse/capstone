@@ -38,7 +38,7 @@
                         <input v-model="payload.profileURL" type="text" placeholder="URL">
                     </div>
                     <div class="inputContainer w-70">
-                        <button type="submit">Login</button>
+                        <button type="submit">Register</button>
                     </div>
                     <div class="inputContainer">
                         <p>Already have an account <a href="./LogInView.vue">Login</a></p>
@@ -79,13 +79,12 @@
 <style scoped>
 .container{
     height: 90vh;
-    border: 2px solid red; 
     width: 100%;
     align-self: center;
     background-image: url(https://i.postimg.cc/nhyC7K06/pexels-pixabay-255464.jpg);
 }
 .infoContainer{
-    background: var(--background-color-1);
+    background-color: var(--tertiary-color-2);
 }
 .infoContainer p{
     font-size: 20px;

@@ -289,6 +289,7 @@ form{
 }
 .custom-button{
     background-color: var(--accent-color-1);
+    color: white;
 }
 .admin-button{
     text-decoration: none;

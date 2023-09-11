@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div id="footerContainer">
-            <div id="footerMainRow">
+            <div id="footerMainRow" class="d-flex justify-content-evenly">
                 <div>
                     <h4>Follow us on social media</h4>
                     <div class="d-flex">
@@ -20,14 +20,20 @@
                     </div>
                 </div>
                 <div>
-                    <h3>Links</h3>
+                    <h4>Links</h4>
                     <div class="d-flex flex-column">
+                        <router-link class="nav-link" to="/">Home</router-link>
+                        <router-link class="nav-link" to="/about">About</router-link>
+                        <router-link class="nav-link" to="/courses">Courses</router-link>
+                        <router-link class="nav-link" to="/admin">Admin</router-link>
+                        <router-link class="nav-link" to="/profile">Profile</router-link>
+                        <router-link class="nav-link" to="/contact">Contact</router-link>
                     </div>
                 </div>
             </div>
             <div id="footerLine">
                 <div>
-                    <p class="text-center">&copy;{{ new Date().getFullYear()}} My Website. All rights reserved.</p>
+                    <p class="text-center">&copy;{{new Date().getFullYear()}} My Website. All rights reserved.</p>
                 </div>
             </div>
         </div>
@@ -43,12 +49,17 @@
 <style scoped>
 
     #footerContainer{
-        height: 30vh;
+        height: min-content;
         background-color: var(--tertiary-color-2);
+        color: var(--secondary-color-2);
+    }
+    #footerMainRow{
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     #footerLine{
-        padding-top: 20px;
-        margin: 50px;
+        padding-top: 15px;
+        padding-bottom: 5px;
         border-top: 2px solid var(--secondary-color-2);
     }
 </style>
