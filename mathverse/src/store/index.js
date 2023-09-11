@@ -56,15 +56,6 @@ export default createStore({
         console.error(error)
       }
     },
-    // async fetchUser(context){
-    //   try{
-    //     const {data} = await axios.get(`${apiLink}/users`);
-    //     context.commit('setUsers', data.results)
-    //     }
-    //   catch (error){
-    //     console.log(error)
-    //   }
-    // },
     async fetchCourses(context){
       try {
         const {data} = await axios.get(`${apiLink}/items`);
@@ -136,7 +127,7 @@ export default createStore({
       try {
         const {msg} = (await axios.post(`${apiLink}/register`, payload)).data
           if (msg){
-            Swal(
+            sweet(
               {
                 title:"Registration",
                 text:msg,
@@ -148,7 +139,7 @@ export default createStore({
           router.push({name:"login"})
           }
           else{
-            Swal(
+            sweet(
               {
                 title:"Error",
                 text:msg,

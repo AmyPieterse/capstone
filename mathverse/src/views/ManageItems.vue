@@ -50,7 +50,7 @@
 
             </div>
             <div class="m-3">
-                <table>
+                <table  v-if="courses">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -63,8 +63,8 @@
                             <th>Delete</th>
                         </tr>
                     </thead>
-                    <tbody v-for="course in courses" :key="course.courseID">
-                        <tr>
+                    <tbody>
+                        <tr v-for="course in courses" :key="course.courseID">
                             <td>{{course.courseID}}</td>
                             <td>{{course.title}}</td>
                             <td>{{course.description}}</td>
