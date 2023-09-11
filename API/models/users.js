@@ -119,7 +119,7 @@ class Users{
                 console.error(err)
                 return res.status(500).json({
                     status: res.statusCode,
-                    error:"Couldnt log in"
+                    error:"Couldn't log in"
                 })
             }
             if(!result?.length){
@@ -131,10 +131,6 @@ class Users{
             const hashedPass = result[0].userPass;
             try{
                 const passwordMatch= await compare(userPass, hashedPass)
-                
-                console.log('Password:', userPass)
-                console.log('Hashed Password:', hashedPass)
-                console.log('Password Match Result:', passwordMatch)
                     
                 if (passwordMatch){
                         const token = createToken({
