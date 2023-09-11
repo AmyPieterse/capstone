@@ -2,14 +2,16 @@
     <div>
         <div id="searchBar">
             <form id="form" role="search">
-                <input type="search" id="query" name="q"
+                <div>
+                    <input type="search" id="query" name="q"
                     placeholder="Search for course"
                     aria-label="Search through courses" v-model="searchCourse">
-                <button class="btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search text-dark" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </button>
+                    <button class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search text-dark" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
         </div>
         <div class="d-flex flex-row" v-if="courses">
@@ -73,14 +75,17 @@ input {
     display: flex;
     align-items: flex-start;
     background-color: transparent;
-    height: 1rem;
+    height: min-content;
+}
+#form div{
+    display: flex;
+    align-items: center;
 }
 #query{
     width:15rem
 }
 #form{
     display: flex;
-    border: 2px solid red;
     width: min-content;
     padding: 1rem;
 }
