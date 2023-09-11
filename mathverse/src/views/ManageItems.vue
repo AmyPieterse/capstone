@@ -290,6 +290,9 @@ form{
 .custom-button{
     background-color: var(--accent-color-1);
     color: white;
+    padding: 12px 15px;
+    border: transparent;
+    border-radius: 10px;
 }
 .admin-button{
     text-decoration: none;

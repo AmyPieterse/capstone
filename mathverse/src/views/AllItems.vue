@@ -1,11 +1,32 @@
 <template>
     <div>
+
         <div id="searchBar">
+            
+            <div>
+                <label for="sortByPrice">Sort by Price:</label>
+                <select id="sortByPrice" v-model="sortOrder">
+                    <option value="lowToHigh">Low to High</option>
+                    <option value="highToLow">High to Low</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="filterByLevel">Filter by grade:</label>
+                <select id="filterByLevel" v-model="sortOrder">
+                    <option value="lowToHigh">Grade 12</option>
+                    <option value="lowToHigh">Grade 11</option>
+                    <option value="highToLow">Grade 10</option>
+                    <option value="highToLow">Grade 9</option>
+                    <option value="highToLow">Grade 8</option>
+                </select>
+            </div>
+
             <form id="form" role="search">
                 <div>
                     <input type="search" id="query" name="q"
                     placeholder="Search for course"
-                    aria-label="Search through courses" v-model="searchCourse">
+                    aria-label="Search through courses" v-model="titleWord">
                     <button class="btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search text-dark" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -13,18 +34,21 @@
                     </button>
                 </div>
             </form>
+
         </div>
-            <div v-if="courses" class="d-flex">
-                <div v-for="course in courses" :key="course.courseID" class="col-lg-3 col-md-4 col-sm-6 mb-md-2 d-flex justify-content-center align-items-center">
-                    <div class="card d-flex justify-content-center">
-                        <img class="card-img-top imageSize" :src="course.courseImg" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title">{{course.title}}</h5>
-                        <p class="card-text">{{course.description}}</p>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-success">See More</a>
-                            <a href="#" class="btn btn-success">Buy</a>
-                        </div>
+            <div v-if="courses">
+                <div class="row">
+                    <div v-for="course in searchCourses" :key="course.courseID" class="col-lg-3 col-md-4 col-sm-6 mb-md-2 d-flex justify-content-center align-items-center">
+                        <div class="card d-flex justify-content-center">
+                            <img class="card-img-top imageSize" :src="course.courseImg" alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title">{{course.title}}</h5>
+                            <p class="card-text">{{course.description}}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-success">See More</a>
+                                <a href="#" class="btn btn-success">Buy</a>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,10 +65,29 @@
         components:{
             SpinnerComp
         },
+        data() {
+            return {
+                titleWord:"",
+                sortOrder:"lowToHigh",
+            }
+        },
         computed:{
             courses(){
                 return this.$store.state.courses
-            }
+            },
+            searchCourses(){
+                return this.courses.filter((courses)=>
+                courses.title.toLowerCase().includes(this.titleWord.toLowerCase())
+                )
+            },
+            sortedCourses(){
+                if (this.sortOrder ==="lowToHigh"){
+                    return this.sortedCourses.sort((a,b)=>a.price-b.price)
+                } 
+                else{
+                    return this.sortedCourses.sort((a,b)=> b.price-a.price)
+                }
+            },
         },
         mounted(){
             this.$store.dispatch('fetchCourses')
@@ -96,6 +139,7 @@ input {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 ::placeholder{
     color: var(--button-color-1);
 }

@@ -1,6 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
+import store from '@/store';
 
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+function Admin(){
+  const user= getUser()
+  return user && user.role==='admin'
+}
+
+router.beforeEach((to,from,next)=>{
+  if(to.meta.requiresAdmin){
+    if (Admin()){
+      next()
+    }
+    else{
+      next({name:'registerAsAdmin'})
+    }
+    next()
+  }
+})
 
 const routes = [
   {
@@ -21,7 +43,10 @@ const routes = [
   {
     path: '/cart',
     name: 'cart',
-    component: () => import('../views/CartPage.vue')
+    component: () => import('../views/CartPage.vue'),
+    meta:{
+      requiresAdmin:false
+    }
   },
   {
     path: '/about',
@@ -34,30 +59,49 @@ const routes = [
     component: () => import('../views/AllItems.vue')
   },
   {
+    path: '/registerAsAdmin',
+    name: 'registerAsAdmin',
+    component: () => import('../components/RegisterAsAdmin.vue')
+  },
+  {
+    path: '/registerAsLearner',
+    name: 'registerAsLearner',
+    component: () => import('../components/RegisterAsLearner.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
-    component: () => import('../views/ProfilePage.vue')
+    component: () => import('../views/ProfilePage.vue'),
+    meta:{
+      requiresAdmin:false
+    }
   },
   {
     path: '/manageProfile',
     name: 'manageProfile',
-    component: () => import('../views/ManageProfile.vue')
+    component: () => import('../views/ManageProfile.vue'),
+    meta:{
+      requiresAdmin:false
+    }
   },
   {
     path: '/admin',
     name: 'admin',
-    component: () => import('../views/ManageItems.vue')
+    component: () => import('../views/ManageItems.vue'),
+    meta: {
+      requiresAdmin:true,
+    }
   },
   {
     path: '/contact',
     name: 'contact',
-    component: () => import('../views/ContactView.vue')
+    component: () => import('../views/ContactView.vue'),
+    meta: {
+      requiresAdmin:false,
+    }
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+
 
 export default router

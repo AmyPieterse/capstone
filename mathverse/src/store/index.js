@@ -3,7 +3,6 @@ import axios from 'axios'
 import { useCookies } from 'vue3-cookies'
 import router from '@/router'
 import authenticate from '@/services/authenticate'
-// import Swal from 'sweetalert2';
 import sweet from 'sweetalert'
 
 const {cookies} = useCookies()
@@ -19,6 +18,9 @@ export default createStore({
     msg: null
   },
   getters: {
+    userRole(state){
+      return state.user ? state.user.role : null
+    }
   },
   mutations: {
     setCourses(state,courses){
@@ -100,8 +102,8 @@ export default createStore({
         const { msg, token, result } = (
           await axios.post(`${apiLink}/login`, payload)).data
         if (result) {
-          console.log(result)
-          context.commit("setUser",{ result, msg })
+          const userWithRole = {...result, role: result?.role, msg}
+          context.commit("setUser", userWithRole)
           cookies.set("ValidUser",{ msg, token, result })
           authenticate.applyToken(token)
           sweet({
