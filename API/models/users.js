@@ -5,7 +5,7 @@ const {createToken} = require('../middleware/authenicate')
 class Users{  
     fetchUsers(req,res){
         const query =
-        `SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL FROM users;`
+        `SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL, role FROM users;`
         database.query(query,(err,results)=>{
             if(err){
                 return res.status(500).json(
@@ -23,7 +23,7 @@ class Users{
     }
     fetchUser(req,res){
         const query =`
-        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL
+        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL, role
         FROM users
         WHERE userID = ${req.params.id};
         `
@@ -57,7 +57,8 @@ class Users{
             userDOB : data.userDOB,
             emailAdd : data.emailAdd,
             userPass : data.userPass,
-            profileURL : data.profileURL
+            profileURL : data.profileURL,
+            role: data.role
         }
         const query =`
         INSERT INTO users
@@ -110,7 +111,7 @@ class Users{
         const {emailAdd, userPass} = req.body
 
         const query = `
-        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL
+        SELECT userID, firstName, lastName, username, userDOB, emailAdd, userPass, profileURL, role
         FROM users
         WHERE emailAdd = ?;
         `
