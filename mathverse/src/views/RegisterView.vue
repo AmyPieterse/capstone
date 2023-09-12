@@ -37,6 +37,13 @@
                         <span>Profile Picture URL</span>
                         <input v-model="payload.profileURL" type="text" placeholder="URL">
                     </div>
+                    <div class="inputContainer d-flex flex-column w-70">
+                        <label for="userRole">User Role:</label>
+                        <select id="userRole" v-model="payload.role">
+                            <option value="Admin">Admin</option>
+                            <option value="Learner">Learner</option>
+                        </select>
+                    </div>
                     <div class="inputContainer w-70">
                         <button type="submit">Register</button>
                     </div>
@@ -70,9 +77,6 @@
                 this.$store.dispatch('register',this.payload)
             }
         }
-        // computed{
-
-        // },
     }
 </script>
 
@@ -99,6 +103,11 @@
     letter-spacing: 1px;
 }
 .inputContainer input{
+    border: 2px solid black;
+    height: 1.5rem;
+    width:12rem;
+}
+.inputContainer select{
     border: 2px solid black;
     height: 1.5rem;
     width:12rem;

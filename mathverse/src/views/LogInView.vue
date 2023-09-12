@@ -13,6 +13,13 @@
                         <span>Username</span>
                         <input v-model="payload.emailAdd" type="text" placeholder="Email">
                     </div>
+                    <div>
+                        <label for="userRole">User Role:</label>
+                        <select id="userRole" v-model="payload.role">
+                            <option value="Admin">Admin</option>
+                            <option value="Learner">Learner</option>
+                        </select>
+                    </div>
                     <div class="inputContainer d-flex flex-column w-70">
                         <span>Password</span>
                         <input v-model="payload.userPass" type="password" placeholder="Password">

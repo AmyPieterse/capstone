@@ -10,7 +10,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+        <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item home active">
                     <router-link class="nav-link" to="/">Home</router-link>
@@ -32,15 +32,20 @@
                 </li>
             </ul>
             <div class="d-flex align-items-center">
-                <div class="d-flex my-2 my-lg-0">
-                    <router-link class="nav-button m-2" to="/login">Log In</router-link>
-                    <router-link class="nav-button m-2" to="/register">Sign Up</router-link>
-                </div>
+                <router-link to="/profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style="color: black" class="bi bi-bag" viewBox="0 0 16 16">
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                    </svg>
+                </router-link>
                 <router-link to="/cart">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" style="color: black" class="bi bi-bag" viewBox="0 0 16 16">
                         <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                     </svg>
                 </router-link>
+                <div class="d-flex my-2 my-lg-0">
+                    <router-link class="nav-button m-2" to="/login">Log In</router-link>
+                    <router-link class="nav-button m-2" to="/register">Sign Up</router-link>
+                </div>
             </div>
         </div>
         
