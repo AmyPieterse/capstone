@@ -1,28 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
-import store from '@/store';
-
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
-
-function Admin(){
-  const user= getUser()
-  return user && user.role==='admin'
-}
-
-router.beforeEach((to,from,next)=>{
-  if(to.meta.requiresAdmin){
-    if (Admin()){
-      next()
-    }
-    else{
-      next({name:'registerAsAdmin'})
-    }
-    next()
-  }
-})
+import store from '@/store'
 
 const routes = [
   {
@@ -64,11 +42,6 @@ const routes = [
     component: () => import('../components/RegisterAsAdmin.vue')
   },
   {
-    path: '/registerAsLearner',
-    name: 'registerAsLearner',
-    component: () => import('../components/RegisterAsLearner.vue')
-  },
-  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfilePage.vue'),
@@ -102,6 +75,29 @@ const routes = [
   }
 ]
 
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+function fetchUser(){
+  return store.state.user
+}
+
+function Admin(){
+  const user=fetchUser()
+  return user&&user.role==='admin'
+}
+
+router.beforeEach((to,from,next)=>{
+  const user=fetchUser()
+  if (to.meta.requiresAdmin && !Admin()){
+    next({name: 'registerAsAdmin'})
+  } 
+  else {
+    next()
+  }
+})
 
 
 export default router
