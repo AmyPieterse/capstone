@@ -3,7 +3,7 @@ const database = require ('../config')
 class Courses{ 
     fetchCourses(req,res){
         const query =
-        `SELECT courseID, title, description, price, creationDate, courseImg
+        `SELECT courseID, title, description, price, creationDate, courseImg, grade
         FROM courses;`
         database.query(query,(err,results)=>{
             if(err) throw err
@@ -14,7 +14,7 @@ class Courses{
         })
     }
     fetchCourse(req,res){
-        const query =`SELECT courseID, title, description, price, creationDate, courseImg
+        const query =`SELECT courseID, title, description, price, creationDate, courseImg, grade
         FROM courses
         WHERE courseID = ${req.params.id};`
         
@@ -34,7 +34,8 @@ class Courses{
             description : data.description,
             price : data.price,
             creationDate : data.creationDate,
-            image : data.courseImg
+            image : data.courseImg,
+            grade: data.grade
         }
         const query =`
         INSERT INTO courses
