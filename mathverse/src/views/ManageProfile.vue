@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <h4>Manage Profile</h4>
     </div>
 </template>
 

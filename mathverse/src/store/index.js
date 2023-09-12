@@ -15,7 +15,9 @@ export default createStore({
     users:null,
     courses: null,
     addProduct: null,
-    msg: null
+    msg: null,
+    cart: null,
+    orders: null,
   },
   getters: {
     userRole(state){
@@ -46,6 +48,15 @@ export default createStore({
     },
     setMsg(state, value){
       state.msg= value
+    },
+    addCart(state, course){
+      state.cart.push(course)
+    },
+    deleteCart(state, index){
+      state.cart.splice(index, 1)
+    },
+    completeOrder(state, order){
+      state.orders.push(order)
     },
   },
   actions: {
@@ -153,7 +164,14 @@ export default createStore({
       } catch (error) {
         context.commit("setMsg","An error has occured")
       }
-    }
+    },
+    createOrder({ commit, state }) {
+      const order = {
+        courses: state.cart.slice(),
+      }
+      commit('createOrder', order)
+      commit('clearCart')
+    },
   },
   modules: {
   }

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div id="searchBar">
             <div>
                 <label for="sortByPrice">Sort by Price:</label>
@@ -13,11 +12,12 @@
             <div>
                 <label for="filterByGrade">Filter by grade:</label>
                 <select id="filterByGrade" v-model="selectedGrade">
-                    <option value="Grade 8">Grade 8</option>
-                    <option value="Grade 9">Grade 9</option>
-                    <option value="Grade 10">Grade 10</option>
-                    <option value="Grade 11">Grade 11</option>
-                    <option value="Grade 12">Grade 12</option>
+                    <option value="8">Grade 8</option>
+                    <option value="9">Grade 9</option>
+                    <option value="10">Grade 10</option>
+                    <option value="11">Grade 11</option>
+                    <option value="12">Grade 12</option>
+                    <option value="13">Undergrad</option>
                 </select>
             </div>
 
@@ -42,11 +42,14 @@
                             <img class="card-img-top imageSize" :src="course.courseImg" alt="Card image cap">
                             <div class="card-body">
                             <h5 class="card-title">{{course.title}}</h5>
-                            <h6>{{course.grade}}</h6>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="subheading">Grade {{course.grade}}</h6>
+                                <h6 class="subheading">R{{course.price}}</h6>
+                            </div>
                             <p class="card-text">{{course.description}}</p>
                             <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-success">See More</a>
-                                <a href="#" class="btn btn-success">R{{course.price}}</a>
+                                <a href="#" class="btn btn-success">See more</a>
+                                <a href="#" class="btn btn-success">Add to cart</a>
                             </div>
                             </div>
                         </div>
@@ -81,11 +84,11 @@
                 course.title.toLowerCase().includes(this.titleWord.toLowerCase())
                 )
             },
-            filterGrade() {
-                if(this.selectedGrade){
-                    return this.searchCourses.filter(
-                        (course)=>course.grade ===this.selectedGrade
-                    )
+            filterGrade(){
+                if (this.selectedGrade){
+                    const filtered = this.searchCourses.filter(
+                        (course) => course.grade == this.selectedGrade)
+                    return filtered
                 }
                 return this.searchCourses
             },
@@ -106,7 +109,8 @@
 
 <style scoped>
 .card {
-    width: 18.5rem;
+    width: 20rem;
+    height: 28rem;
     border: 2px solid rgb(221, 221, 221);
     border-radius: 8px;
     overflow: hidden;
@@ -148,7 +152,6 @@ input {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-
 ::placeholder{
     color: var(--button-color-1);
 }
@@ -165,6 +168,9 @@ input {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+}
+.subheading{
+    font-weight: 600;
 }
 .card-text {
     margin-bottom: 1rem;

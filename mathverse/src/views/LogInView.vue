@@ -28,7 +28,7 @@
                         <button type="submit">Login</button>
                     </div>
                     <div class="inputContainer">
-                        <p>Don't have an account<router-link :to="{name:'RegisterView'}">Sign up</router-link></p>
+                        <p>Don't have an account <router-link :to="{name:'RegisterView'}">Sign up</router-link></p>
                     </div>
                 </form>
             </div>

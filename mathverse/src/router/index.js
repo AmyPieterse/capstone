@@ -37,9 +37,9 @@ const routes = [
     component: () => import('../views/AllItems.vue')
   },
   {
-    path: '/registerAsAdmin',
-    name: 'registerAsAdmin',
-    component: () => import('../components/RegisterAsAdmin.vue')
+    path: '/loginAsAdmin',
+    name: 'loginAsAdmin',
+    component: () => import('../components/LoginAsAdmin.vue')
   },
   {
     path: '/profile',
@@ -90,9 +90,9 @@ function Admin(){
 }
 
 router.beforeEach((to,from,next)=>{
-  const user=fetchUser()
+  const user =fetchUser()
   if (to.meta.requiresAdmin && !Admin()){
-    next({name: 'registerAsAdmin'})
+    next({name: 'loginAsAdmin'})
   } 
   else {
     next()
