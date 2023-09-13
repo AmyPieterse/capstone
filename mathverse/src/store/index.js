@@ -16,7 +16,7 @@ export default createStore({
     courses: null,
     addProduct: null,
     msg: null,
-    cart: null,
+    cart: [],
     orders: null,
   },
   getters: {

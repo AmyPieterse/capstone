@@ -30,10 +30,6 @@ export default {
 
 <style scoped>
 
-  #image-container img{
-    width:700px;
-    height: 530px;
-  }
   .home-button{
     text-decoration: none;
     color: var(--secondary-color-2);
@@ -41,5 +37,25 @@ export default {
     border: transparent;
     border-radius: 5px;
     padding: 8px 20px;
+}
+@media screen and (max-width: 900px){
+  #image-container img{
+    width: 440px;
+    height:350px
+  }
+}
+@media screen and (max-width: 600px){
+  #main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 450px){
+  #image-container img{
+    width: 300px;
+    height:250px
+  }
 }
 </style>

@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(course,index) in $store.state.cart" :key="course.courseID">
+                        <tr v-for="(course,index) in cartItems" :key="course.courseID">
                             <td>{{course.title}}</td>
                             <td>{{course.description}}</td>
                             <td>{{course.grade}}</td>
@@ -32,30 +32,32 @@
                         </tr>
                     </tbody>
                 </table>
-                <h4 class="">
-                    <button @click="proceedToCheckout">Proceed To Checkout</button>
-                </h4>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+                    Proceed To Checkout
+                </button>
+                <Checkout/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Checkout from '@/components/Checkout.vue'
     export default {
+        components:{
+            Checkout
+        },
         data(){
-            return{
-                cart: [],
-            }
+            
+        },
+        computed:{
+            cartItems() {
+                return this.$store.state.cart
+            },
         },
         methods:{
-            addToCart(course) {
-                this.$store.dispatch('addToCart',course)
-            },
             deleteCart(index){
-                this.cart.splice(index,1)
-            },
-            proceedToCheckout(){
-                this.$store.dispatch('completeOrder')
+                this.$store.commit('deleteCart',index)
             },
         },
 };

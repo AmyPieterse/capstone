@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div id="searchBar">
-            <div>
-                <label for="sortByPrice">Sort by Price:</label>
+        <div id="searchBar" class="d-flex flex-lg-row flex-column justify-content-center align-items-center my-5 gap-5">
+            <div class="sortFilter d-flex">
+                <label for="sortByPrice" class="mmmm">Sort by Price:</label>
                 <select id="sortByPrice" v-model="sortOrder">
                     <option value="lowToHigh">Low to High</option>
                     <option value="highToLow">High to Low</option>
                 </select>
             </div>
             
-            <div>
+            <div class="sortFilter d-flex">
                 <label for="filterByGrade">Filter by grade:</label>
                 <select id="filterByGrade" v-model="selectedGrade">
                     <option value="8">Grade 8</option>
@@ -21,7 +21,7 @@
                 </select>
             </div>
 
-            <form id="form" role="search">
+            <form class="sortFilter" role="search">
                 <div>
                     <input type="search" id="query" name="q"
                     placeholder="Search for course"
@@ -49,7 +49,7 @@
                             <p class="card-text">{{course.description}}</p>
                             <div class="d-flex justify-content-between">
                                 <a href="#" class="btn btn-success">See more</a>
-                                <a href="#" class="btn btn-success">Add to cart</a>
+                                <a href="#" class="btn btn-success" @click="addToCart(course)">Add to cart</a>
                             </div>
                             </div>
                         </div>
@@ -101,6 +101,11 @@
                 }
             },
         },
+        methods:{
+            addToCart(course){
+                this.$store.commit('addCart', course);
+            },
+        },
         mounted(){
             this.$store.dispatch('fetchCourses')
         }
@@ -125,32 +130,34 @@ input {
     color: var(--button-color-1);
     height: 100%;
     width: 100%;
-    padding: 4px 8px;
+    padding: 6px 8px;
 }
-#form .btn{
+.sortFilter select{
+    font: 16px;
+    border: 2px solid black;
+    color: var(--button-color-1);
+    height: 100%;
+    width: 100%;
+    padding: 6px 8px;
+}
+.sortFilter label{
+    width: 100%;
+}
+.sortFilter .btn{
     display: flex;
     align-items: flex-start;
     background-color: transparent;
-    height: min-content;
 }
-#form div{
+.sortFilter div{
     display: flex;
     align-items: center;
 }
 #query{
-    width:15rem
+    width:12rem
 }
-#form{
+.sortFilter{
     display: flex;
-    width: min-content;
-    padding: 1rem;
-}
-#searchBar{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    align-items: center;
 }
 ::placeholder{
     color: var(--button-color-1);
@@ -159,7 +166,6 @@ input {
     height: 200px;
     object-fit: cover;
 }
-
 .card-body {
     padding: 1.25rem;
 }
