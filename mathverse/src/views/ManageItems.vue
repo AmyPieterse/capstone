@@ -1,7 +1,5 @@
 <template>
     <div class="p-4">
-        <h2>Administration Page</h2>
-    <div class="p-4">
     <div>
 
         <button type="button" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -135,7 +133,6 @@
                 </table>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -191,13 +188,14 @@
             }
         
             this.$store.dispatch('updateCourse',{courseID,courseData: updatedCourseData})
-                this.courseData = {
+                
+            this.courseData = {
                     title: "",
                     description: "",
                     price: "",
                     creationDate: "",
                     courseImg: "",
-            }
+                }
         }
         else{
         console.error("Course not found")
@@ -289,6 +287,10 @@ form{
 }
 .custom-button{
     background-color: var(--accent-color-1);
+    color: white;
+    padding: 12px 15px;
+    border: transparent;
+    border-radius: 10px;
 }
 .admin-button{
     text-decoration: none;

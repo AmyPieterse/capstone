@@ -4,6 +4,9 @@
             <div>
                 <h3 class="mb-4">Login</h3>
                 <p>Good to see you again!</p>
+                <div>
+                    <img class="loginImg" src="https://i.postimg.cc/nLS4TmJQ/giphy-1.gif" alt="gif">
+                </div>
             </div>
         </div>
         <div class="contentContainer d-flex w-50 h-100 justify-content-center align-items-center">
@@ -14,14 +17,21 @@
                         <input v-model="payload.emailAdd" type="text" placeholder="Email">
                     </div>
                     <div class="inputContainer d-flex flex-column w-70">
+                        <label for="userRole">User Role:</label>
+                        <select id="userRole" v-model="payload.role">
+                            <option value="Admin">Admin</option>
+                            <option value="Learner">Learner</option>
+                        </select>
+                    </div>
+                    <div class="inputContainer d-flex flex-column w-70">
                         <span>Password</span>
                         <input v-model="payload.userPass" type="password" placeholder="Password">
                     </div>
                     <div class="inputContainer w-70">
-                        <button type="submit">Login</button>
+                        <button class="login" type="submit">Login</button>
                     </div>
                     <div class="inputContainer">
-                        <p>Don't have an account<router-link :to="{name:'RegisterView'}">Sign up</router-link></p>
+                        <p>Don't have an account <router-link :to="{name:'RegisterView'}">Sign up</router-link></p>
                     </div>
                 </form>
             </div>
@@ -34,8 +44,9 @@
 export default {
     data() {
         return {
-            payload: {
+            payload:{
             emailAdd: "",
+            role: "",
             userPass: ""
             }
         }
@@ -59,15 +70,15 @@ export default {
 
 
 <style scoped>
+    
     .container{
         height: 80vh;
-        border: 2px solid red; 
         width: 100%;
         align-self: center;
-        background-image: url(https://i.postimg.cc/nhyC7K06/pexels-pixabay-255464.jpg);
+        background-image: url(https://i.postimg.cc/MZNSnbPM/Sea-of-Clouds-9-1s-1536px.png);
     }
     .infoContainer{
-        background: var(--background-color-1);
+        background-color: rgb(133, 122, 122);
     }
     .infoContainer p{
         font-size: 20px;
@@ -81,14 +92,30 @@ export default {
         font-size: 16px;
         letter-spacing: 1px;
     }
-    .inputContainer input{
+    .inputContainer input, select{
         border: 2px solid black;
-        height: 1.5rem;
+        height: 2rem;
         width:12rem;
+        font: 16px;
+        padding: 6px 6px;
     }
     form{
-        background-color: white;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: min-content;
         padding: 20px;
+    }
+    .login{
+        padding: 8px 20px;
+        width: 8rem;
+        border: transparent;
+        border-radius: 10px;
+        color: var(--secondary-color-2);
+        background-color: var(--accent-color-1);
+    }
+    .loginImg{
+        width: 400px;
     }
 </style>
