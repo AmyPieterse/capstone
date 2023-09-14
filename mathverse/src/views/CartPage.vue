@@ -47,12 +47,17 @@
         components:{
             Checkout
         },
-        data(){
-            
-        },
         computed:{
             cartItems() {
                 return this.$store.state.cart
+            },
+            fetchUserOrders() {
+                if (this.$store.state.userOrders){
+                    return this.$store.state.userOrders.filter((order) => order.status === 'pending')
+                } 
+                else{
+                    return []
+                }
             },
         },
         methods:{

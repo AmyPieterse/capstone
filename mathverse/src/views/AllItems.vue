@@ -104,12 +104,12 @@
         },
         methods:{
             addToCart(course){
-                this.$store.commit('addCart', course);
+                this.$store.dispatch('createPendingOrder', course)
             },
             clearFilters(){
                 this.titleWord="";
-                this.sortOrder="lowToHigh";
-                this.selectedGrade="";
+                this.sortOrder="lowToHigh"
+                this.selectedGrade=""
             },
         },
         mounted(){
