@@ -32,7 +32,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal">
                     Proceed To Checkout
                 </button>
                 <Checkout/>

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import store from '@/store'
+import { useCookies } from 'vue3-cookies'
+const {cookies} = useCookies()
 
 const routes = [
   {
@@ -22,9 +24,6 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: () => import('../views/CartPage.vue'),
-    meta:{
-      requiresAdmin:false
-    }
   },
   {
     path: '/about',
@@ -39,39 +38,27 @@ const routes = [
   {
     path: '/loginAsAdmin',
     name: 'loginAsAdmin',
-    component: () => import('../components/LoginAsAdmin.vue')
+    component: () => import('../components/LoginAsAdmin.vue'),
   },
   {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfilePage.vue'),
-    meta:{
-      requiresAdmin:false
-    }
   },
   {
     path: '/manageProfile',
     name: 'manageProfile',
     component: () => import('../views/ManageProfile.vue'),
-    meta:{
-      requiresAdmin:false
-    }
   },
   {
     path: '/admin',
     name: 'admin',
     component: () => import('../views/ManageItems.vue'),
-    meta: {
-      requiresAdmin:true,
-    }
   },
   {
     path: '/contact',
     name: 'contact',
     component: () => import('../views/ContactView.vue'),
-    meta: {
-      requiresAdmin:false,
-    }
   }
 ]
 
@@ -80,24 +67,8 @@ const router = createRouter({
   routes
 })
 
-function fetchUser(){
-  return store.state.user
-}
-
-function Admin(){
-  const user=fetchUser()
-  return user&&user.role==='admin'
-}
-
 router.beforeEach((to,from,next)=>{
-  const user =fetchUser()
-  if (to.meta.requiresAdmin && !Admin()){
-    next({name: 'loginAsAdmin'})
-  } 
-  else {
-    next()
-  }
+  next()
 })
-
 
 export default router

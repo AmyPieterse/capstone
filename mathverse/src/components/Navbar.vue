@@ -10,7 +10,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse d-lg-flex justify-content-between" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav d-flex flex-md-row flex-column justify-content-center align-items-center">
                 <li class="nav-item home active">
                     <router-link class="nav-link" to="/">Home</router-link>
@@ -24,7 +24,7 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/profile">Profile</router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-show="isAdmin">
                     <router-link class="nav-link" to="/admin">Admin</router-link>
                 </li>
                 <li class="nav-item">
@@ -46,7 +46,8 @@
                     </router-link>
                 </div>
                 <div class="d-flex my-2 my-lg-0">
-                    <router-link class="nav-button m-2" to="/login">Log In</router-link>
+                    <router-link class="nav-button m-2" to="/login" v-if="!result">Log In</router-link>
+                    <button class="nav-button m-2" @click="logout" v-show="result" v-else>Log out</button>
                     <router-link class="nav-button m-2" to="/register">Sign Up</router-link>
                 </div>
             </div>
@@ -56,8 +57,28 @@
 </template>
 
 <script>
+import { useCookies } from 'vue3-cookies';
+import router from '@/router';
+const {cookies} = useCookies()
+
     export default {
-        
+        computed: {
+            user(){
+                return this.$store.state.user || cookies.get("ValidUser")
+            },
+            result(){
+                return this.user?.result
+            },
+            isAdmin(){
+                return this.result?.role.toLowerCase() === "admin"
+            }
+        },
+        methods: {
+            logout(){
+                router.push({name: 'login'})
+                cookies.remove("ValidUser")
+            }
+        },
     }
 </script>
 
@@ -116,6 +137,7 @@ nav a.router-link-exact-active{
     padding: 8px 20px;
 }
 @media screen and (max-width: 450px){
+    
     .navbar-toggler{
         width: min-content;
         height: min-content;

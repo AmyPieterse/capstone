@@ -113,8 +113,8 @@ export default createStore({
         const { msg, token, result } = (
           await axios.post(`${apiLink}/login`, payload)).data
         if (result) {
-          const userWithRole = {...result, role: result?.role, msg}
-          context.commit("setUser", userWithRole)
+          // const userWithRole = {...result, role: result?.role, msg}//dont use spread
+          context.commit("setUser", result)
           cookies.set("ValidUser",{ msg, token, result })
           authenticate.applyToken(token)
           sweet({

@@ -1,8 +1,9 @@
 <template>
     <div>
         <div id="searchBar" class="d-flex flex-lg-row flex-column justify-content-center align-items-center my-5 gap-5">
+            
             <div class="sortFilter d-flex">
-                <label for="sortByPrice" class="mmmm">Sort by Price:</label>
+                <label for="sortByPrice">Sort Price:</label>
                 <select id="sortByPrice" v-model="sortOrder">
                     <option value="lowToHigh">Low to High</option>
                     <option value="highToLow">High to Low</option>
@@ -10,7 +11,7 @@
             </div>
             
             <div class="sortFilter d-flex">
-                <label for="filterByGrade">Filter by grade:</label>
+                <label for="filterByGrade">Filter grade:</label>
                 <select id="filterByGrade" v-model="selectedGrade">
                     <option value="8">Grade 8</option>
                     <option value="9">Grade 9</option>
@@ -33,7 +34,7 @@
                     </button>
                 </div>
             </form>
-
+            <button class="btn-clear" @click="clearFilters">Clear</button>
         </div>
             <div v-if="courses">
                 <div class="row">
@@ -105,10 +106,15 @@
             addToCart(course){
                 this.$store.commit('addCart', course);
             },
+            clearFilters(){
+                this.titleWord="";
+                this.sortOrder="lowToHigh";
+                this.selectedGrade="";
+            },
         },
         mounted(){
             this.$store.dispatch('fetchCourses')
-        }
+        },
     }
 </script>
 
@@ -137,11 +143,11 @@ input {
     border: 2px solid black;
     color: var(--button-color-1);
     height: 100%;
-    width: 100%;
+    width: 10rem;
     padding: 6px 8px;
 }
 .sortFilter label{
-    width: 100%;
+    width: 8rem;
 }
 .sortFilter .btn{
     display: flex;
@@ -180,6 +186,13 @@ input {
 }
 .card-text {
     margin-bottom: 1rem;
+}
+#searchBar .btn-clear{
+    padding: 8px 20px;
+    border: transparent;
+    border-radius: 10px;
+    color: var(--secondary-color-2);
+    background-color: var(--accent-color-1);
 }
 
 </style>

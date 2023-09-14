@@ -9,8 +9,8 @@
             <h2>LEARN ANYWHERE</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta illo quam autem consequuntur minima blanditiis culpa accusamus odit dolor sint, quo commodi, voluptatum adipisci, quis mollitia molestias obcaecati vero quisquam?</p>
             <div class="d-flex justify-content-center">
-              <router-link to="/profile"><button class="home-button mx-2">Learner</button></router-link>
-              <router-link to="/admin"><button class="home-button mx-2">Administrator</button></router-link>
+              <router-link to="/login" @click="goProfile" class="home-button mx-2">Learner</router-link>
+              <router-link to="/login" @click="goAdmin" class="home-button mx-2">Administrator</router-link>
             </div>
           </div>
       </div>
@@ -19,11 +19,31 @@
 </template>
 
 <script>
+import { useCookies } from 'vue3-cookies'
+import router from '@/router'
+const {cookies} = useCookies()
 
 export default {
   name: 'HomePage',
-  components: {
-
+  methods:{
+    goProfile(){
+      const {cookies}=useCookies()
+        if (cookies.get("ValidUser")){
+          router.push({name:'profile'})
+        }
+        else{
+          router.push({name:'login'})
+        }
+    },
+    goAdmin(){
+      const {cookies}=useCookies()
+        if (cookies.get("ValidUser")){
+          router.push({name:'admin'})
+        }
+        else{
+          router.push({name:'login'})
+        }
+    }
   }
 }
 </script>
