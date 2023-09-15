@@ -49,8 +49,8 @@
                             </div>
                             <p class="card-text">{{course.description}}</p>
                             <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-success">See more</a>
-                                <a href="#" class="btn btn-success" @click="addToCart(course)">Add to cart</a>
+                                <router-link :to="'/single/'+ course.courseID" class="btn btn-success">See more</router-link>
+                                <button class="btn btn-success" @click="addToCart(course)">Add to cart</button>
                             </div>
                             </div>
                         </div>

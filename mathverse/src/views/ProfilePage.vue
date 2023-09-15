@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="profileHeading">
+        <!-- <div class="profileHeading">
             <div class="user-info">
                 <div class="d-flex justify-content-center align-items-center gap-2">
                     <img v-if="user && user.profileImg" :src="user.profileImg" alt="ProfileImg">
@@ -30,51 +30,48 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-    import { useCookies } from 'vue3-cookies'
-    const {cookies} = useCookies()
+    // import { useCookies } from 'vue3-cookies'
+    // import {useRouter} from 'vue-router'
+    // const { cookies } = useCookies()
+    // const router = useRouter()
 
-    export default {
-        computed: {
-            userOrders(){
-                console.log('userOrders:', this.$store.state.userOrders);
-                return this.$store.state.userOrders
-            },
-            user(){
-                console.log('user:', this.$store.state.user);
-                return this.$store.state.user
-            },
-            completedOrders(){
-                const completed = this.fetchUserOrders();
-                console.log('completedOrders:', completed);
-                return this.fetchUserOrders()
-            },
-        },
-        methods:{
-           async fetchUserOrders(){
-            const {cookies}=useCookies()
-            const router = useRouter()
-                if (cookies.get("ValidUser")){
-                    if (this.$store.state.userOrders){
-                        return this.$store.state.userOrders.filter(
-                            order=>order.status==='completed'
-                        )
-                    }
-                    return[]
-                }
-                else{
-                    router.push({name:'login'})
-                }
-            }
-        },
-        mounted(){
-            this.$store.dispatch('fetchUserOrders')
-        },
-    }
+    // export default {
+    //     computed: {
+    //         user(){
+    //             return this.$store.state.user || cookies.get("ValidUser")
+    //         },
+    //         result(){
+    //             return this.user?.result
+    //         },
+    //         userOrders(){
+    //             return this.$store.state.userOrders
+    //         },
+    //     methods: {
+    //         async fetchUserOrders(){
+
+    //             const loggedIn = this.$store.state.user || cookies.get('ValidUser')
+
+    //             if (!loggedIn) {
+    //                 router.push({ name: 'login' })
+    //                 return
+    //             }
+                
+    //             const userID = this.$store.state.user ? this.$store.state.user.userID : cookies.get('ValidUser').result.userID
+                    
+    //             await this.$store.dispatch('fetchUser', userID)
+    //             await this.$store.dispatch('fetchUserOrders', userID)
+    //         },
+    //         },
+    //     },
+    //     mounted(){
+    //         this.$store.dispatch('fetchUserOrders')
+    //     },
+    // }
 </script>
 
 <style scoped>

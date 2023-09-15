@@ -34,6 +34,9 @@ export default createStore({
     setCourses(state,courses){
       state.courses= courses
     },
+    setCourse(state, course) {
+      state.course = course;
+    },
     setUsers(state, users){
       state.users = users
     },
@@ -75,6 +78,15 @@ export default createStore({
         console.error(error)
       }
     },
+    async fetchUser(context, userID){
+      try {
+        const {data} = await axios.get(`${apiLink}/users/${userID}`)
+        context.commit('setUser', data)
+      } catch (error) {
+        console.error(error)
+        context.commit('setMsg', 'An error occurred while fetching the user')
+      }
+    },
     async updateUser(context, userData) {
       try {
         const response = await axios.patch(`${apiLink}/users/${userData.userID}`, userData)
@@ -91,7 +103,16 @@ export default createStore({
         context.commit('setMsg', 'An error occurred while deleting the user profile.')
       }
     },
-    async fetchCourses(context){
+    async fetchCourse(context, courseID){
+      try {
+        const {data} = await axios.get(`${apiLink}/item/${courseID}`)
+        context.commit('setCourse', data)
+      } catch (error){
+        console.error(error)
+        context.commit('setMsg', 'An error occurred while fetching the course')
+      }
+    },
+    async fetchCourses(context) {
       try {
         const {data} = await axios.get(`${apiLink}/items`);
         context.commit('setCourses', data.results)
@@ -184,13 +205,16 @@ export default createStore({
       }
     },
     async fetchUserOrders(context) {
-      try{
-        const response = await axios.get(`${apiLink}/orders`)
-        const userOrders = response.data.results
-        context.commit('setUserOrders', userOrders)
-      } 
-      catch(error){
-        console.error(error)
+      try {
+        const userID = context.state.user ? context.state.user.userID : cookies.get("ValidUser")?.result?.userID;
+    
+        if (userID) {
+          const response = await axios.get(`${apiLink}/user/${userID}/carts`)
+          const userOrders = response.data.results
+          context.commit('setUserOrders', userOrders)
+        }
+      } catch (error) {
+        console.error(error);
       }
     },
   },

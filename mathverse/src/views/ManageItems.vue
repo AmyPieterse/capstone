@@ -1,11 +1,9 @@
 <template>
     <div class="p-4">
     <div>
-
         <button type="button" class="btn custom-button" data-bs-toggle="modal" data-bs-target="#addModal">
         Add Course
         </button>
-
 
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -131,12 +129,19 @@
                         </tr>
                     </tbody>
                 </table>
+                <div v-else>
+                    <SpinnerComp/>
+                </div>
             </div>
         </div>
 </template>
 
 <script>
+import SpinnerComp from '@/components/SpinnerComp.vue'
     export default {
+        components:{
+            SpinnerComp
+        },
         data(){
             return{
                 courseData:{

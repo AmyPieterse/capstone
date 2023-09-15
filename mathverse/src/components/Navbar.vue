@@ -11,7 +11,7 @@
         </button>
         
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-            <ul class="navbar-nav d-flex flex-md-row flex-column justify-content-center align-items-center">
+            <ul class="navbar-nav d-flex justify-content-center align-items-center">
                 <li class="nav-item home active">
                     <router-link class="nav-link" to="/">Home</router-link>
                 </li>
@@ -22,9 +22,9 @@
                     <router-link class="nav-link" to="/courses">Courses</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-show="isLearner" class="nav-link" to="/profile">Profile</router-link>
+                    <router-link v-if="isLearner" class="nav-link" to="/profile">Profile</router-link>
                 </li>
-                <li class="nav-item" v-show="isAdmin">
+                <li class="nav-item" v-if="isAdmin">
                     <router-link class="nav-link" to="/admin">Admin</router-link>
                 </li>
                 <li class="nav-item">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="d-flex my-2 my-lg-0">
                     <router-link class="nav-button m-2" to="/login" v-if="!result">Log In</router-link>
-                    <button class="nav-button m-2" @click="logout" v-show="result" v-else>Log out</button>
+                    <button class="nav-button m-2" @click="logout" v-if="result">Log out</button>
                     <router-link class="nav-button m-2" to="/register">Sign Up</router-link>
                 </div>
             </div>
@@ -70,7 +70,7 @@ const {cookies} = useCookies()
                 return this.user?.result
             },
             isAdmin(){
-                return this.result?.role.toLowerCase() === "admin"
+                return this.result?.role.toLowerCase() ==="admin"
             },
             isLearner(){
                 return this.result?.role.toLowerCase()==="learner"
@@ -139,6 +139,7 @@ nav a.router-link-exact-active{
     border-radius: 5px;
     padding: 8px 20px;
 }
+
 @media screen and (max-width: 450px){
     
     .navbar-toggler{
