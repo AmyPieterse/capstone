@@ -22,7 +22,7 @@
                     <router-link class="nav-link" to="/courses">Courses</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/profile">Profile</router-link>
+                    <router-link v-show="isLearner" class="nav-link" to="/profile">Profile</router-link>
                 </li>
                 <li class="nav-item" v-show="isAdmin">
                     <router-link class="nav-link" to="/admin">Admin</router-link>
@@ -71,6 +71,9 @@ const {cookies} = useCookies()
             },
             isAdmin(){
                 return this.result?.role.toLowerCase() === "admin"
+            },
+            isLearner(){
+                return this.result?.role.toLowerCase()==="learner"
             }
         },
         methods: {
