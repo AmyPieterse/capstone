@@ -4,7 +4,7 @@
       <div id="image-container" class="d-flex align-items-center">
         <img src="https://i.postimg.cc/4x32xYPB/5836-removebg-preview.png" alt="mainImg">
       </div>
-      <div class="d-flex justify-content-center align-items-center">
+      <div class="info-container d-flex justify-content-center align-items-center">
           <div class="w-50 d-flex flex-column">
             <h2>LEARN ANYWHERE</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta illo quam autem consequuntur minima blanditiis culpa accusamus odit dolor sint, quo commodi, voluptatum adipisci, quis mollitia molestias obcaecati vero quisquam?</p>
@@ -59,12 +59,16 @@ export default {
     padding: 8px 20px;
 }
 @media screen and (max-width: 900px){
+  .main-container{
+    display: flex;
+    flex-direction: column;
+  }
   #image-container img{
     width: 440px;
     height:350px
   }
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 1000px){
   #main-container{
     display: flex;
     flex-direction: column;

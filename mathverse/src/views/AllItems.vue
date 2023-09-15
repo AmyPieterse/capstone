@@ -49,8 +49,8 @@
                             </div>
                             <p class="card-text">{{course.description}}</p>
                             <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-success">See more</a>
-                                <a href="#" class="btn btn-success" @click="addToCart(course)">Add to cart</a>
+                                <router-link :to="'/single/'+ course.courseID" class="btn btn-success">See more</router-link>
+                                <button class="btn btn-success" @click="addToCart(course)">Add to cart</button>
                             </div>
                             </div>
                         </div>
@@ -104,12 +104,12 @@
         },
         methods:{
             addToCart(course){
-                this.$store.commit('addCart', course);
+                this.$store.dispatch('createPendingOrder', course)
             },
             clearFilters(){
                 this.titleWord="";
-                this.sortOrder="lowToHigh";
-                this.selectedGrade="";
+                this.sortOrder="lowToHigh"
+                this.selectedGrade=""
             },
         },
         mounted(){

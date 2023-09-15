@@ -36,6 +36,12 @@ const routes = [
     component: () => import('../views/AllItems.vue')
   },
   {
+    path: '/single/:courseId',
+    name: 'single',
+    component: () => import('../views/SingleItem.vue'),
+    props: true  
+  },
+  {
     path: '/loginAsAdmin',
     name: 'loginAsAdmin',
     component: () => import('../components/LoginAsAdmin.vue'),

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="profileHeading">
+        <!-- <div class="profileHeading">
             <div class="user-info">
                 <div class="d-flex justify-content-center align-items-center gap-2">
-                    <img src="" alt="ProfileImg">
-                    <h5 class="m-0">Username</h5>
+                    <img v-if="user && user.profileImg" :src="user.profileImg" alt="ProfileImg">
+                    <h3 v-if="user" class="m-0">{{user.username}}</h3>
                 </div>
                 <div>
                     <button>Manage Profile</button>
@@ -18,41 +18,60 @@
                 </div>
                 <div class="courseContent w-75">
                     <ul>
-                        <li>
-                            <h6>Course 1</h6>
+                        <li v-for="order in completedOrders" :key="order.orderID">
+                            <h6>{{order.courseTitle}}</h6>
                             <ul>
-                                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, placeat!</li>
-                                <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe, repellendus!</li>
-                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, nisi.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h6>Course 2</h6>
-                            <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h6>Course 3</h6>
-                            <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
+                                <li v-for="lesson in order.lessons" :key="lesson.lessonID">
+                                    <h6>{{ lesson.title }}</h6>
+                                    <p>{{ lesson.content }}</p>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+    // import { useCookies } from 'vue3-cookies'
+    // import {useRouter} from 'vue-router'
+    // const { cookies } = useCookies()
+    // const router = useRouter()
+
+    // export default {
+    //     computed: {
+    //         user(){
+    //             return this.$store.state.user || cookies.get("ValidUser")
+    //         },
+    //         result(){
+    //             return this.user?.result
+    //         },
+    //         userOrders(){
+    //             return this.$store.state.userOrders
+    //         },
+    //     methods: {
+    //         async fetchUserOrders(){
+
+    //             const loggedIn = this.$store.state.user || cookies.get('ValidUser')
+
+    //             if (!loggedIn) {
+    //                 router.push({ name: 'login' })
+    //                 return
+    //             }
+                
+    //             const userID = this.$store.state.user ? this.$store.state.user.userID : cookies.get('ValidUser').result.userID
+                    
+    //             await this.$store.dispatch('fetchUser', userID)
+    //             await this.$store.dispatch('fetchUserOrders', userID)
+    //         },
+    //         },
+    //     },
+    //     mounted(){
+    //         this.$store.dispatch('fetchUserOrders')
+    //     },
+    // }
 </script>
 
 <style scoped>

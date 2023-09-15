@@ -16,10 +16,16 @@ export default createStore({
     courses: null,
     addProduct: null,
     msg: null,
-    cart: [],
-    orders: null,
+    cart: null,
+    userOrders: null,
   },
   getters: {
+    getUser(state) {
+      return state.user
+    },
+    getMsg(state) {
+      return state.msg
+    },
     userRole(state){
       return state.user ? state.user.role : null
     }
@@ -27,6 +33,9 @@ export default createStore({
   mutations: {
     setCourses(state,courses){
       state.courses= courses
+    },
+    setCourse(state, course) {
+      state.course = course;
     },
     setUsers(state, users){
       state.users = users
@@ -47,7 +56,7 @@ export default createStore({
       state.courses= state.courses.filter((course)=>course.id !== courseID)
     },
     setMsg(state, value){
-      state.msg= value
+      state.msg = value
     },
     addCart(state, course){
       state.cart.push(course)
@@ -55,8 +64,8 @@ export default createStore({
     deleteCart(state, index){
       state.cart.splice(index, 1)
     },
-    completeOrder(state, order){
-      state.orders.push(order)
+    setUserOrders(state, orders){
+      state.userOrders = orders
     },
   },
   actions: {
@@ -69,7 +78,41 @@ export default createStore({
         console.error(error)
       }
     },
-    async fetchCourses(context){
+    async fetchUser(context, userID){
+      try {
+        const {data} = await axios.get(`${apiLink}/users/${userID}`)
+        context.commit('setUser', data)
+      } catch (error) {
+        console.error(error)
+        context.commit('setMsg', 'An error occurred while fetching the user')
+      }
+    },
+    async updateUser(context, userData) {
+      try {
+        const response = await axios.patch(`${apiLink}/users/${userData.userID}`, userData)
+        context.commit('setUser', response.data)
+      } catch (error) {
+        context.commit('setMsg', 'An error occurred while updating the user profile.')
+      }
+    },
+    async deleteUser(context, userID) {
+      try {
+        await axios.delete(`${apiLink}/users/${userID}`)
+        context.commit('setUser', null)
+      } catch (error) {
+        context.commit('setMsg', 'An error occurred while deleting the user profile.')
+      }
+    },
+    async fetchCourse(context, courseID){
+      try {
+        const {data} = await axios.get(`${apiLink}/item/${courseID}`)
+        context.commit('setCourse', data)
+      } catch (error){
+        console.error(error)
+        context.commit('setMsg', 'An error occurred while fetching the course')
+      }
+    },
+    async fetchCourses(context) {
       try {
         const {data} = await axios.get(`${apiLink}/items`);
         context.commit('setCourses', data.results)
@@ -88,32 +131,12 @@ export default createStore({
         context.commit("setMsg", "An error occured")
       }
     },
-    async updateCourse(context,{courseID, courseData}){
-      try{
-        const response= await axios.put(`${apiLink}/item/${courseID}`,courseData)
-        location.reload()
-        context.commit('updateCourse',{courseID, updatedCourse:response.data})
-      }
-      catch{
-        context.commit("setMsg", "An error occured")
-      }
-    },
-    async deleteCourse(context,courseID){
-      try{
-        await axios.delete(`${apiLink}/item/${courseID}`)
-        location.reload()
-        context.commit('deleteCourse',courseID)
-      }
-      catch(error){
-        context.commit("setMsg", "An error occured")
-      }
-    },
+    
     async login(context, payload) {
       try {
         const { msg, token, result } = (
           await axios.post(`${apiLink}/login`, payload)).data
         if (result) {
-          // const userWithRole = {...result, role: result?.role, msg}//dont use spread
           context.commit("setUser", result)
           cookies.set("ValidUser",{ msg, token, result })
           authenticate.applyToken(token)
@@ -123,7 +146,7 @@ export default createStore({
             icon: "success",
             timer: 4000,
           });
-          router.push({ name: "home" });
+          router.push({name: "home"});
         } else {
           sweet({
             title: "Error",
@@ -161,16 +184,38 @@ export default createStore({
               }
             )
           }
-      } catch (error) {
+      }
+      catch (error){
         context.commit("setMsg","An error has occured")
       }
     },
-    createOrder({ commit, state }) {
-      const order = {
-        courses: state.cart.slice(),
+    async createOrder(context, course){
+      try{
+        const orderData={
+          userID: context.state.user.userID, 
+          courseID: course.courseID,
+          status: 'pending',
+        }
+        const response = await axios.post(`${apiLink}/orders`, orderData)
+        const pendingOrder = response.data
+        context.commit('addCart', pendingOrder)
       }
-      commit('createOrder', order)
-      commit('clearCart')
+      catch(error){
+        console.error(error)
+      }
+    },
+    async fetchUserOrders(context) {
+      try {
+        const userID = context.state.user ? context.state.user.userID : cookies.get("ValidUser")?.result?.userID;
+    
+        if (userID) {
+          const response = await axios.get(`${apiLink}/user/${userID}/carts`)
+          const userOrders = response.data.results
+          context.commit('setUserOrders', userOrders)
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   modules: {
