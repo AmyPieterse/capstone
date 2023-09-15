@@ -3,15 +3,25 @@ const database = require('../config')
 
 class Orders{ 
     fetchOrders(req,res){
+        const userID = req.params.id;
         const query =
         `SELECT orderID, userID, courseID, orderDate, status
-        FROM orders;`
-        database.query(query,(err,results)=>{
-            if(err) throw err
-            res.json({
-                status:res.statusCode,
-                results
-            })
+        FROM orders WHERE userID=${userID};`
+        
+        database.query(query, (err, results)=>{
+            if (err){
+                console.error(err)
+                res.status(500).json({
+                    status: 500,
+                    msg: "Failed to fetch user orders"
+                })
+            } 
+            else{
+                res.status(200).json({
+                    status: 200,
+                    orders: results
+                })
+            }
         })
     }
     fetchOrder(req,res){
