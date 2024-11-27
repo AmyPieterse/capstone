@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div class="d-flex justify-content-evenly">
-      <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container-vision d-flex justify-content-center align-items-center">
+      <div class="w-50">
         <h4>Our Vision</h4>
-        <div class="visionText">
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi quia eum est, aperiam vero perferendis ut asperiores tenetur natus iusto. Pariatur, vitae hic ad necessitatibus ea voluptas dolores architecto alias autem deleniti adipisci quidem consequatur? Maiores iste, ipsum deleniti quaerat accusamus, quos, delectus commodi corrupti odit sunt vitae in consectetur.</p>
+       
+        <div>
+          <p>Our vision at Mathverse is to make mathematics accessible, engaging, and empowering for learners of all ages. We aim to inspire a love for math by providing innovative tools and tailored courses that unlock potential, foster confidence, and open doors to limitless possibilities.</p>
         </div>
       </div>
-      <div>
-        <img src="https://i.postimg.cc/90x1RbvT/c620f9c4-8401-44dc-97c2-0f844c1e95f5.jpg" alt="">
+      <div class="w-50">
+        <img class="about-image" src="https://i.ibb.co/TTQ1RRp/pexels-photo-5905857.webp" alt="">
       </div>
     </div>
   </div>
@@ -21,7 +22,17 @@
 </script>
 
 <style scoped>
-.visionText{
-  width: 500px;
+
+<style>
+.container-vision{
+  width:100%
 }
+.visionText{
+  width: 100px;
+}
+.about-image{
+  height: 400px;
+  width: auto;
+}
+
 </style>

@@ -32,7 +32,10 @@ html, body {
 
 main{
     min-height: 90vh;
-    padding: 1rem;
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

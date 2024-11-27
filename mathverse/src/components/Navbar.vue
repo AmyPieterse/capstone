@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
         <div class="logo-heading">
             <router-link class="nav-link main-heading d-flex" to="/">
-                <img src="https://i.postimg.cc/ZR0fsFSN/icon.png" class="customImg" alt="icon">
+                <img src="https://i.ibb.co/m45ypLw/Untitled-design-removebg-preview.png" alt="Untitled-design-removebg-preview" border="0" />
                 <h2>Mathverse</h2>
             </router-link>
         </div>
@@ -105,7 +105,7 @@ nav .nav-item .nav-link:hover{
 }
 
 nav a.router-link-exact-active{
-    text-decoration: underline;
+    
     color: var(--button-color-1);
 }
 nav a.router-link-exact-active{

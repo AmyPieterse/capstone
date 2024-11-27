@@ -1,14 +1,15 @@
 <template>
   <div id="home">
-    <div id="main-container" class="d-flex">
-      <div id="image-container" class="d-flex align-items-center">
-        <img src="https://i.postimg.cc/4x32xYPB/5836-removebg-preview.png" alt="mainImg">
+    <div id="main-container" class="d-flex justify-content-center align-items-center gap-3">
+      <div id="image-container" class="w-50 d-flex align-items-center">
+        <img src="https://i.ibb.co/88kWf22/pexels-photo-8923566.webp" alt="mainImg">
       </div>
-      <div class="info-container d-flex justify-content-center align-items-center">
-          <div class="w-50 d-flex flex-column">
+      <div class="w-50 info-container d-flex justify-content-center align-items-center">
+          <div class="d-flex flex-column">
             <h2>LEARN ANYWHERE</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta illo quam autem consequuntur minima blanditiis culpa accusamus odit dolor sint, quo commodi, voluptatum adipisci, quis mollitia molestias obcaecati vero quisquam?</p>
-            <div class="d-flex justify-content-center">
+            <br> 
+            <p><span class="heading">Welcome to Mathverse!</span><br>We provide interactive courses for learners of all ages that are personalized to your specific goals and pace of learning. Unleash your full potential with professional material, progress tracking, and a smooth learning experience. Begin your journey with Mathverse today!</p>
+            <div class="button-hover d-flex">
               <router-link to="/login" @click="goProfile" class="home-button mx-2">Learner</router-link>
               <router-link to="/login" @click="goAdmin" class="home-button mx-2">Administrator</router-link>
             </div>
@@ -49,15 +50,36 @@ export default {
 </script>
 
 <style scoped>
+.heading{
+  font-size: 20px;
+  font-weight: bold;
+}
 
   .home-button{
     text-decoration: none;
     color: var(--secondary-color-2);
     background-color: var(--accent-color-1);
-    border: transparent;
     border-radius: 5px;
     padding: 8px 20px;
 }
+.home-button:hover{
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+main {
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+}
+
 @media screen and (max-width: 900px){
   .main-container{
     display: flex;
@@ -65,7 +87,7 @@ export default {
   }
   #image-container img{
     width: 440px;
-    height:350px
+    height:auto;
   }
 }
 @media screen and (max-width: 1000px){
@@ -77,9 +99,13 @@ export default {
   }
 }
 @media screen and (max-width: 450px){
+  #image-container{
+  display:flex;
+  justify-content:center;
+  }
   #image-container img{
     width: 300px;
-    height:250px
+    height:auto;
   }
 }
 </style>
